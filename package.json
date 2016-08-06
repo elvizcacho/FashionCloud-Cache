@@ -23,7 +23,7 @@
     "errorhandler": "^1.1.1",
     "express": "^4.0.0",
     "lodash": "3.10.1",
-    "mongoose": "4.0.2",
+    "mongoose": "^4.5.8",
     "morgan": "^1.6.1",
     "request": "^2.63.0",
     "response-time": "^2.3.1",

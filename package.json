@@ -2,9 +2,9 @@
   "name": "FashionCloud",
   "version": "1.0.0",
   "description": "FashionCloud",
-  "main": "server.js",
+  "main": "node server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "mocha test/controllers"
   },
   "keywords": [

@@ -6,6 +6,9 @@
 			"autoRemove": "native",
 			"autoRemoveInterval": 10,
 			"seed": false
+		},
+		"cache": {
+			"maxNumberOfDocuments": 20
 		}
 	},
 	"test": {
@@ -16,5 +19,8 @@
 			"autoRemoveInterval": 10,
 			"seed": true
 		}
+	},
+	"cache": {
+		"maxNumberOfDocuments": 20
 	}
 }

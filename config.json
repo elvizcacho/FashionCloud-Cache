@@ -1,0 +1,20 @@
+{
+	"local": {
+		"mongodb": {
+			"url": "mongodb://localhost:27017/fashioncloud-sebastian",
+			"autoReconnect": true,
+			"autoRemove": "native",
+			"autoRemoveInterval": 10,
+			"seed": false
+		}
+	},
+	"test": {
+		"mongodb": {
+			"url": "mongodb://localhost:27017/fashioncloud-sebastian-test",
+			"autoReconnect": true,
+			"autoRemove": "native",
+			"autoRemoveInterval": 10,
+			"seed": true
+		}
+	}
+}

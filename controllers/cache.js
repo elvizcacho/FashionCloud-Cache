@@ -67,7 +67,7 @@ module.exports.createOrUpdate = function(req, res) {
 			}
 		}
 	], function(err, result) {
-		if (err) res.status(400).send(err);
+		if (err) return res.status(400).send(err);
 		res.send({
 			message: 'ok',
 			data: result.payload
@@ -77,10 +77,22 @@ module.exports.createOrUpdate = function(req, res) {
 
 
 module.exports.deleteOne = function(req, res) {
-
+	models.Cache.remove({
+		key: req.params.key
+	}).exec(function(err, result) {
+		if (err) return res.status(400).send(err);
+		res.send({
+			message: 'ok'
+		});
+	});
 };
 
 
 module.exports.deleteAll = function(req, res) {
-
+	models.Cache.remove({}).exec(function(err, result) {
+		if (err) return res.status(400).send(err);
+		res.send({
+			message: 'ok'
+		});
+	});
 };

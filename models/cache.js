@@ -6,6 +6,7 @@ var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'))[process.env.A
 
 var preCreate = function(next) {
 	var self = this;
+	self.modified = new Date();
 	if (!self.isNew) return next();
 	self.model('Cache').count({}, function(err, count) { //FIFO Queue
 		if (count + 1 > config.cache.maxNumberOfDocuments) { //override oldest document
@@ -42,6 +43,10 @@ var CacheSchema = new Schema({
 	payload: {
 		type: String,
 		default: uid.sync(18) //generates a random String
+	},
+	modified: {
+		type: Date,
+		default: Date.now
 	},
 	created: {
 		type: Date,

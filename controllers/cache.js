@@ -1,6 +1,6 @@
 var models = require('../models');
 var async = require('async');
-
+var uid = require('uid-safe');
 
 
 module.exports.list = function(req, res) {
@@ -20,11 +20,23 @@ module.exports.read = function(req, res) {
 		},
 		function(cache, cb) {
 			if (cache) {
-				console.log('Cache hit');
-				cb(null, {
-					message: 'Cache hit',
-					data: cache.payload
-				});
+				if (Date.parse(cache.modified) + (cache.ttl * 1000) < Date.now()) { // Cache is not alive anymore
+					cache.payload = uid.sync(18);
+					cache.save();
+					cb(null, {
+						message: 'Cache miss',
+						data: cache.payload
+					});
+					console.log('Cache miss');
+				} else {
+					console.log('Cache hit');
+					cache.modified = new Date();
+					cache.save();
+					cb(null, {
+						message: 'Cache hit',
+						data: cache.payload
+					});
+				}
 			} else {
 				models.Cache.create({
 					key: req.params.key

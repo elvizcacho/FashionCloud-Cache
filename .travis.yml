@@ -1,11 +1,8 @@
-services:
-  - mongodb
-before_script:
-  - sleep 15
-  - mongo mydb_test --eval 'db.addUser("travis", "test");'
 language: node_js
 node_js:
   - "4.4.7"
+services:
+  - mongodb
 env:
   - APP_ENV=test
   - CXX=g++-4.8

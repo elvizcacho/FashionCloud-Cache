@@ -27,9 +27,9 @@ deploy:
   access_key_id: AKIAJYTIJNJWZEHP6BNA
   secret_access_key:
     secure: FsiCj9wgWS1oZd2tGwx3SftEiS6hS9mw+y7vFe90al6lLEN4hgoov/GhYdUV3GXaCQ0v9hyoX5g4drmuHH63/VLUClh7ng9wbxSqAOB5DYomzgvWlN7gLRO2Ch6O2VfE0gWB+kUdYEMyg4+Du4lxRoMy5o6dfKrBSJlNah10oy8fLtj05irGzPTR0lIwlJJAYROpI78DIM5Qkm1C4Bfah/OcmkL70XqvNDtFORP2wYlmD5AAEJ4iWXx+jIAVjETp9d8gxLlOwn1o5c9QfYdfS13k3HlCIFwWqOAquBm7yd9DuyV/B6ruGo8j1gfGAzo8UvmL8y2ATt3LREinR3bEsoCCbbTXTcRAW1C9RC7VB0+PZp2zs8ga+LL9J8xQyKG0WZKXRqTehopp7iYi1MXRUALDMi2u3hUXlvCnaQHPwvrRriSakYuUlXz2fopz1q+bMCxNCh7v+hBlL0CNuN7p+cE2l1m02g59PUAaDyUgdr3qRdi2ZEgV1D3yKqf1vIzzoa9l91IsRdhTx0c6K4JeSojHd5kWtqv1pFJMd8bJ1veNDyPkBWUnXC003oxAEqCiepULnp35Mq6B178y9OomisU1Y6HbcAMo9YZzIHHohyThA7Nln8WfVsMqQ092b/ULyNjFhnhrAdS+AYiiLv3fphwnAfLvXaDnGPqLjcqFa4o=
-  bucket: "poduction"
-      key: latest/FashionCloud.zip
-      application: FashionCloud
-      deployment_group: FashionCloudGroup
-      on:
-        branch: master
+  bucket: poduction
+  key: latest/FashionCloud.zip
+  application: FashionCloud
+  deployment_group: FashionCloudGroup
+  on:
+    branch: master

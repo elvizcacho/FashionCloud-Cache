@@ -44,4 +44,3 @@ deploy:
   on: *2
 before_deploy:
 - mkdir -p dpl_cd_upload
-- mv FashionCloud.zip dpl_cd_upload/FashionCloud.zip

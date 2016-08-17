@@ -159,6 +159,7 @@ describe('cache', function() {
 							.set('Accept', 'application/json')
 							.end(function(err, res) {
 								if (err) reject();
+								console.log(res.body);
 								res.statusCode.should.equal(200);
 								res.body.length.should.equal(5);
 								resolve();

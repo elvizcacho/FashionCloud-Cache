@@ -33,14 +33,15 @@ deploy:
     secure: StrWzzvZCGQRwBDwVNErnNBaIB3fNBUtdIau4JBy4sWY5b7cf09g5vRQbG18p/KuMzU49GKq6MVP/6VJP2ZREz8atavG+bk1VLVTRzO2DTO4a4sFRfOGwPA960FgvNlLvHrO60cYTFaQyOcV+KxocikATl9kywv1vYhpXha0qLER2nDUFJ54SJEoXoHBSN+QYY8lhR5wbW7ezBtyadNq+y2fpAQZbQL2TOYNUP48aH0nscH+J39kwxwtEy/5pgBqM5IzeY7tfjpZwodD013SSV+zYiISc5H0k8O+GCbaysiAT4x2b5ArRpP9qfr3yJZMU8WERs1QOK30OgKdu3nYiIchit2YxFbYCq9dFmPN/gvnLY3yst7T3J99M9o7ktBzcTTbfTgnYiymxEbhLjFDgwzXjF2g7DXr5oCM0xNHeWthGK54nyIUnDiIt8J5WZQFXf0hFtXetr8KDNSglADiy5zOSSphHW2bYz5iVQwFDvu/vYt9M004q3VcvE8pCR1BALJY2zuPFtx0uXw45+xtCjM94x2J7JRIiPS5+nEfZ78Q1FVIcjOtSGdIbR47u6u2B3E/yCBoaavjgP9tr7goJfF1fc2S7vjjdCL9CsZn07imdF8BNjRyhDEHh4xOLNJf95X3XY0PXy0ljlv5MaTWyofkFR9v+ZzPp9fUBk1r28c=
   local_dir: dpl_cd_upload
   skip_cleanup: true
-  on:
+  on: &2
+    repo: elvizcacho/FashionCloud-Cache
   bucket: production
-  upload_dir: latest
 - provider: codedeploy
   access_key_id: AKIAJYTIJNJWZEHP6BNA
   secret_access_key: *1
   bucket: production
-  key: latest/FashionCloud.zip
+  key: latest.zip
   bundle_type: zip
   application: FashionCloud
   deployment_group: FashionCloudGroup
+  on: *2

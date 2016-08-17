@@ -13,7 +13,7 @@
 	},
 	"test": {
 		"mongodb": {
-			"url": "mongodb://localhost:27017/fashioncloud-sebastian-test",
+			"url": "mongodb://127.0.0.1:27017/fashioncloud-sebastian-test",
 			"autoReconnect": true,
 			"autoRemove": "native",
 			"autoRemoveInterval": 10,

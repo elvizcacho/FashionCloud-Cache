@@ -159,6 +159,7 @@ describe('cache', function() {
 							.set('Accept', 'application/json')
 							.end(function(err, res) {
 								if (err) reject();
+								console.log('1');
 								console.log(res.body);
 								res.statusCode.should.equal(200);
 								res.body.length.should.equal(5);
@@ -176,6 +177,8 @@ describe('cache', function() {
 						.set('Accept', 'application/json')
 						.end(function(err, res) {
 							if (err) reject();
+							console.log('2');
+							console.log(res.body);
 							res.statusCode.should.equal(200);
 							res.body.message.should.equal('ok');
 							res.body.data.should.equal('replace first key');
@@ -190,6 +193,8 @@ describe('cache', function() {
 							.set('Accept', 'application/json')
 							.end(function(err, res) {
 								if (err) reject();
+								console.log('3');
+								console.log(res.body);
 								res.statusCode.should.equal(200);
 								res.body.length.should.equal(5);
 								res.body[4].payload.should.equal('replace first key'); //first created key was key 0 so key 5 replaced key 0

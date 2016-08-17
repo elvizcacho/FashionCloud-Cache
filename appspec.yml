@@ -29,7 +29,7 @@ files:
 #   you can specify a "permissions"
 #   section here that describes special permissions to apply to the files
 #   in the "files" section as they are being copied over to
-#   the Amazon EC2 instance.
+#   the Amazon EC2 instance
 #   For more information, see the documentation.
 # If you are deploying to Windows Server instances,
 #   then remove the

@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "4.4.7"
+env:
+  APP_ENV=test
+before_install:
+  - "npm install -g mocha"
+install:
+  - npm install
+script:
+  - npm test

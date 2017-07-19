@@ -4,120 +4,117 @@ var request = require('supertest');
 var should = require('should');
 var _ = require('lodash');
 var tk = require('timekeeper');
+var async = require('bluebird').coroutine;
 
 describe('cache', function() {
 
-	it('Adds new key to cache', function(done) {
-		request(app)
-			.post('/cache/cat')
-			.send({
-				payload: 'w asd cat1'
-			})
-			.set('Accept', 'application/json')
-			.end(function(err, res) {
-				res.statusCode.should.equal(200);
-				res.body.message.should.equal('ok');
-				res.body.data.should.equal('w asd cat1');
-				done();
-			});
-	});
+	it('Adds new key to cache', async(function* () {
+    
+		var res = yield  request(app)
+			                .post('/cache/cat')
+			                .send({
+				                payload: 'w asd cat1'
+			                })
+			                .set('Accept', 'application/json');
+                      
+    res.statusCode.should.equal(200);
+		res.body.message.should.equal('ok');
+		res.body.data.should.equal('w asd cat1');
+    
+	}));
 
-	it('Adds new key to cache no payload provided', function(done) {
-		request(app)
-			.post('/cache/cat')
-			.set('Accept', 'application/json')
-			.end(function(err, res) {
-				res.statusCode.should.equal(400);
-				res.body.message.should.equal('Bad request: payload missing on request body');
-				done();
-			});
-	});
+	it('Adds new key to cache no payload provided', async(function* () {
+    
+		var res = yield request(app)
+		                .post('/cache/cat')
+			              .set('Accept', 'application/json');
+			              
+		res.statusCode.should.equal(400);
+		res.body.message.should.equal('Bad request: payload missing on request body');
+				
+	}));
 
-	it('Updates key', function(done) {
-		request(app)
-			.post('/cache/cat')
-			.send({
-				payload: 'Wow!!'
-			})
-			.set('Accept', 'application/json')
-			.end(function(err, res) {
-				res.statusCode.should.equal(200);
-				res.body.message.should.equal('ok');
-				res.body.data.should.equal('Wow!!');
-				done();
-			});
-	});
+	it('Updates key', async(function* (done) {
+    
+		var res = yield request(app)
+			        .post('/cache/cat')
+			        .send({
+				        payload: 'Wow!!'
+			        })
+			        .set('Accept', 'application/json');
+			
+		res.statusCode.should.equal(200);
+		res.body.message.should.equal('ok');
+		res.body.data.should.equal('Wow!!');
+			
+	}));
 
-	it('Reads an existing key', function(done) {
-		request(app)
-			.get('/cache/cat')
-			.set('Accept', 'application/json')
-			.end(function(err, res) {
-				res.statusCode.should.equal(200);
-				res.body.message.should.equal('Cache hit');
-				res.body.data.should.equal('Wow!!');
-				done();
-			});
-	});
+	it('Reads an existing key', async(function* () {
+    
+		var res = yield request(app)
+			              .get('/cache/cat')
+			              .set('Accept', 'application/json');
+			              
+		res.statusCode.should.equal(200);
+		res.body.message.should.equal('Cache hit');
+		res.body.data.should.equal('Wow!!');
+				
+	}));
 
-	it('Reads an unexisting key', function(done) {
-		request(app)
-			.get('/cache/dog')
-			.set('Accept', 'application/json')
-			.end(function(err, res) {
-				res.statusCode.should.equal(200);
-				res.body.message.should.equal('Cache miss');
-				should.exists(res.body.data); //random String
-				done();
-			});
-	});
+	it('Reads an unexisting key', async(function* () {
+    
+		var res = yield request(app)
+			            .get('/cache/dog')
+			            .set('Accept', 'application/json');
+			       
+		res.statusCode.should.equal(200);
+		res.body.message.should.equal('Cache miss');
+		should.exists(res.body.data); //random String
+				
+	}));
 
-	it('Reads all keys', function(done) {
-		request(app)
-			.get('/cache')
-			.set('Accept', 'application/json')
-			.end(function(err, res) {
-				res.statusCode.should.equal(200);
-				res.body.length.should.equal(2);
-				done();
-			});
-	});
+	it('Reads all keys', async(function* (done) {
+    
+		var res = yield request(app)
+			              .get('/cache')
+			              .set('Accept', 'application/json');
+			                                
+    res.statusCode.should.equal(200);
+    res.body.length.should.equal(2);
+				
+	}));
 
-	it('Deletes a key', function(done) {
-		request(app)
-			.delete('/cache/cat')
-			.set('Accept', 'application/json')
-			.end(function(err, res) {
-				res.statusCode.should.equal(200);
-				res.body.message.should.equal('ok');
-				done();
-			});
-	});
+	it('Deletes a key', async(function* () {
+    
+		var res = yield request(app)
+			              .delete('/cache/cat')
+			              .set('Accept', 'application/json');
+			
+		res.statusCode.should.equal(200);
+		res.body.message.should.equal('ok');
+				
+	}));
 
-	it('Deletes all keys', function(done) {
-		new Promise(function(resolve, reject) {
-			request(app)
-				.delete('/cache')
-				.set('Accept', 'application/json')
-				.end(function(err, res) {
-					if (err) return reject();
-					res.statusCode.should.equal(200);
-					res.body.message.should.equal('ok');
-					resolve();
-				});
-		}).then(function() {
-			request(app)
-				.get('/cache')
-				.set('Accept', 'application/json')
-				.end(function(err, res) {
-					res.statusCode.should.equal(200);
-					res.body.length.should.equal(0);
-					done();
-				});
-		});
-	});
+	it('Deletes all keys', async(function* () {
+    
+    var res = yield request(app)
+                    .delete('/cache')
+                    .set('Accept', 'application/json');
+      
+    res.statusCode.should.equal(200);
+    res.body.message.should.equal('ok');
+    
+    res = yield request(app)
+                .get('/cache')
+                .set('Accept', 'application/json');
+    
+    res.statusCode.should.equal(200);
+    res.body.length.should.equal(0);
+  
+	}));
 
-	it('Creates 5 keys and reaches maxNumberOfDocuments | first key created is overwrited', function(done) {
+	it('Creates 5 keys and reaches maxNumberOfDocuments | first key created is overwrited', async(function* () {
+    
 		var keysValues = [{
 			key: '0',
 			value: 'a'
@@ -134,6 +131,7 @@ describe('cache', function() {
 			key: '4',
 			value: 'a'
 		}];
+    
 		keysValues.map(function(keyValue) {
 			return new Promise(function(resolve, reject) {
 				setTimeout(function() { //to ensure order
@@ -150,9 +148,9 @@ describe('cache', function() {
 				}, 10 * Number(keyValue.key));
 			});
 		});
-		Promise.all(keysValues)
-			.then(function() {
-				return new Promise(function(resolve, reject) {
+		yield Promise.all(keysValues);
+			
+		yield new Promise(function(resolve, reject) {
 					setTimeout(function() {
 						request(app)
 							.get('/cache')
@@ -165,8 +163,8 @@ describe('cache', function() {
 							});
 					}, 100);
 				});
-			}).then(function() {
-				return new Promise(function(resolve, reject) {
+			
+				yield new Promise(function(resolve, reject) {
 					request(app)
 						.post('/cache/5')
 						.send({
@@ -181,8 +179,8 @@ describe('cache', function() {
 							resolve();
 						});
 				});
-			}).then(function() {
-				return new Promise(function(resolve, reject) {
+			
+				yield new Promise(function(resolve, reject) {
 					setTimeout(function() {
 						request(app)
 							.get('/cache')
@@ -200,24 +198,23 @@ describe('cache', function() {
 							});
 					}, 100);
 				});
-			}).then(function() {
-				done();
-			});
-	});
+			
+	}));
 
-	it('TTL expires', function(done) {
+	it('TTL expires', async(function* (done) {
+    
 		var time = Date.now() + 3600000 * 24 * 5;
 		tk.travel(time); //travels 5 days in the future
-		request(app)
+    
+		var res = yield request(app)
 			.get('/cache/5')
-			.set('Accept', 'application/json')
-			.end(function(err, res) {
-				res.statusCode.should.equal(200);
-				res.body.message.should.equal('Cache miss');
-				should.exists(res.body.data); //random string
-				done();
-			});
-	});
+			.set('Accept', 'application/json');
+			
+  	res.statusCode.should.equal(200);
+  	res.body.message.should.equal('Cache miss');
+  	should.exists(res.body.data); //random string
+				
+	}));
 
 
 });
